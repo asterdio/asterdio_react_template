@@ -1,0 +1,23 @@
+## It is used to deploy the NEXT JS application to staging environment
+name: Deploying to staging
+on:
+  pull_request:
+    branches:
+      - staging
+    types:  [closed]
+  workflow_dispatch:
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.STAGE_HOST }}
+          username: ${{ secrets.STAGE_USERNAME }}
+          key: ${{ secrets.STAGE_KEY }}
+          script: sh /deploy/${{secrets.DEPLOY_SCRIPT}}.sh
