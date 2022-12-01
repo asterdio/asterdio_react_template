@@ -1,10 +1,11 @@
-name: Auto merge into the staging branch
+
+name: Auto merge into the master branch
 on:
   pull_request:
     types:
       - opened
     branches:
-      - staging
+      - {{secrets.BRANCH_NAME }}
   workflow_dispatch:
 jobs:
   auto-merge:
